@@ -59,12 +59,11 @@ int main(int, char**) {
             prevState[i] = mvmtState[i];
         }
         while (SDL_PollEvent(&event)) {
-
             if (event.type == SDL_QUIT) {
                 quit = true;
             }
-
         }
+
         updateMovementState(mvmtState, keystate);
         bool comp = true;
         for (int i = 0; i < 4; i++) {

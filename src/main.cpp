@@ -4,8 +4,8 @@
 #include "res_path.h"
 #include "cleanup.h"
 #define GET_VARIABLE_NAME(Variable) (#Variable)
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 104;
+const int SCREEN_HEIGHT = 100;
 const int TILE_SIZE = 40;
 const int MVRIGHT = 0;
 const int MVLEFT = 1;
@@ -172,10 +172,12 @@ int main(int, char**) {
 	clips = new SDL_Rect[numberOfSprites];
 	for (int i = 0; i < numberOfSprites; i++) {
 		clips[i].x = i * imageWidth;
-		clips[i].y = imageHeight;
+		clips[i].y = 0;
 		clips[i].w = imageWidth;
 		clips[i].h = imageHeight;
 	}
+	std::cout << numberOfSprites << std::endl;
+	
 	int useClip = 0;
 	SDL_Event event;
 	bool quit = false;
@@ -185,6 +187,7 @@ int main(int, char**) {
 	int velocity[2] = { 0 };
 	int j = 0;
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 	while(!quit) {
 		for (int i = 0; i < 4; i++) {
 			prevState[i] = mvmtState[i];
@@ -213,10 +216,15 @@ int main(int, char**) {
 		updateVelocityFromMvmtState(mvmtState, velocity);
 		
 		SDL_RenderClear(renderer);
-		renderTexture(footTexture, renderer, imageX, imageY, &clips[j%8]);
+
+		renderTexture(footTexture, renderer, imageX, imageY, &clips[j]);
 		SDL_RenderPresent(renderer);
 		j++;
-		//system("pause");
+		if (j == 8); {
+			j = 0;
+		}
+
+		system("pause");
 	}
 	cleanup(footTexture, renderer, window);
 	//delete(mvmtState);
