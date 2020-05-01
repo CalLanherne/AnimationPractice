@@ -219,12 +219,11 @@ int main(int, char**) {
 
 		renderTexture(footTexture, renderer, imageX, imageY, &clips[j]);
 		SDL_RenderPresent(renderer);
-		j++;
-		if (j == 8); {
+		j+=1;
+		if (j == 8) {
 			j = 0;
 		}
-
-		system("pause");
+		SDL_Delay(70);
 	}
 	cleanup(footTexture, renderer, window);
 	//delete(mvmtState);
